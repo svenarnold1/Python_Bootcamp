@@ -15,14 +15,14 @@ while keep_running:
         output_text = ""
         if cipher_direction == 'decode':
             shift_amount *= -1
-            for letter in input_text:
-                if letter in alphabet:
-                    position = alphabet.index(letter)
-                    new_position = position + shift_amount
-                    new_letter = alphabet[new_position]
-                    output_text += new_letter
-                else:
-                    output_text += letter
+        for letter in input_text:
+            if letter in alphabet:
+                position = alphabet.index(letter)
+                new_position = position + shift_amount
+                new_letter = alphabet[new_position]
+                output_text += new_letter
+            else:
+                output_text += letter
         return f"the {direction}d message is: {output_text}"
 
 
@@ -33,6 +33,7 @@ while keep_running:
         again = input("if you want to continue, type 'yes', type 'no' if you want to quit:\n").lower()
         if again == 'no':
             keep_running = False
+            print('Goodbye!')
 
     # def encrypt(plain_text, shift_amount):
     #    cypher_text = ""
