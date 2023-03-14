@@ -1,0 +1,16 @@
+ask user if he wants to play a game of blackjack
+
+if yes, print logo
+
+give user and dealer two random cards,
+
+print cards and score of user and ask if he want to hit or stand
+
+if hit, draw another card as many times user wants to hit
+
+if score over 21, reveal user and dealer hand and print BUST, you lose
+else if user is satisfied, draw cards for dealer as long score of dealer is less than 17.
+
+whenever an Ace is given to a participants, count value as 11 except score goes over 21, then count as 1.
+
+reveal user and dealer cards and lock who is closer to 21
