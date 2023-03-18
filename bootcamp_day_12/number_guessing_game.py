@@ -18,7 +18,7 @@ def pick_num():
 
 
 secret_num = pick_num()
-print(secret_num)
+
 
 def define_lives():
     global lives
