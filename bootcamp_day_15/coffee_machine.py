@@ -3,9 +3,6 @@
 
 from coffee_recipe import MENU, resources
 
-money = 0
-flavour = input("What would you like? (espresso/latte/cappuccino): ").lower()
-
 
 def report():
     """returns the resources left inside of coffee machine"""
@@ -38,35 +35,43 @@ def insert_coins():
 
 
 def reduce_resources(coffee):
-    resources['water'] -= MENU[flavour]['ingredients']['water']
-    resources['milk'] -= MENU[coffee]['ingredients']['milk']
+    resources['water'] -= MENU[coffee]['ingredients']['water']
     resources['coffee'] -= MENU[coffee]['ingredients']['coffee']
+    if coffee != 'espresso':
+        resources['milk'] -= MENU[coffee]['ingredients']['milk']
 
 
-# TODO 2. Turn off the Coffee Machine by entering “off” to the prompt.
-
-
-if flavour == 'report':
-    print(report())
-
-
-# TODO 4. Check resources sufficient?
-# need to consider that 'report' creates a bug here!
-if check_resources(flavour) == 0:
-    # TODO 5. Process coins.
-    cash = insert_coins()
-    price = MENU[flavour]['cost']
-
-    print(f"cash: {cash} price: {price}")
-    if cash == price:
-        print("Here is your {coffee}. Enjoy!")
-        reduce_resources(flavour)
-    elif cash > price:
-        refund = cash - price
-        print(f"Here is ${refund} in change.")
-        reduce_resources(flavour)
+cash = 0
+should_continue = True
+while should_continue:
+    # ask what coffee user wants.
+    flavour = input("What would you like? (espresso/latte/cappuccino): ").lower()
+    # enable turn off and report
+    if flavour == 'report':
+        print(report())
+    elif flavour == 'off':
+        should_continue = False
     else:
-        print("Sorry that's not enough money. Money refunded.")
-else:
-    print(check_resources(flavour))
+        # if enough resources, continue
+        if check_resources(flavour) == 0:
+            # process coins.
+            cash = insert_coins()
+            price = MENU[flavour]['cost']
 
+            print(f"cash: {cash} price: {price}")
+            if cash == price:
+                cash = 0
+                print(f"Here is your {flavour} ☕. Enjoy!")
+                reduce_resources(flavour)
+            elif cash > price:
+                refund = cash - price
+                cash = 0
+                print(f"Here is ${refund} in change.\nHere is your {flavour} ☕. Enjoy!")
+                reduce_resources(flavour)
+            else:
+                cash = 0
+                print("Sorry that's not enough money. Money refunded.")
+        else:
+            print(check_resources(flavour))
+
+# EoF (End of File)
