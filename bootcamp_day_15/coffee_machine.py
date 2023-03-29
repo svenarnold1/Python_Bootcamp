@@ -7,7 +7,7 @@ from coffee_recipe import MENU, resources
 def report():
     """returns the resources left inside of coffee machine"""
     return f"Water: {resources['water']}ml \nMilk: {resources['milk']}ml" \
-           f" \nCoffee: {resources['coffee']}g \nMoney: ${cash}"
+           f" \nCoffee: {resources['coffee']}g \nMoney: ${money_inside}"
 
 
 def check_resources(coffee):
@@ -41,6 +41,7 @@ def reduce_resources(coffee):
         resources['milk'] -= MENU[coffee]['ingredients']['milk']
 
 
+money_inside = 0
 cash = 0
 should_continue = True
 while should_continue:
@@ -60,12 +61,12 @@ while should_continue:
 
             print(f"cash: {cash} price: {price}")
             if cash == price:
-                cash = 0
+                money_inside += price
                 print(f"Here is your {flavour} ☕. Enjoy!")
                 reduce_resources(flavour)
             elif cash > price:
-                refund = cash - price
-                cash = 0
+                refund = round(cash - price, 2)
+                money_inside += price
                 print(f"Here is ${refund} in change.\nHere is your {flavour} ☕. Enjoy!")
                 reduce_resources(flavour)
             else:
