@@ -40,7 +40,7 @@ lives = define_lives()
 
 
 def play_game(secret):
-    print(secret)
+
     # ask user what difficulty should be set
     print("I'm thinking of a number between 1 and 100.")
 
