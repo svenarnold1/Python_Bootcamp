@@ -10,8 +10,13 @@ for dicts in question_data:
     question_answer = dicts['answer']
     question_bank.append(Question(q_text=question_text, q_answer=question_answer))
 
+# if i would want to access the text inside of question_bank: question_bank[0].text
 
 quiz = QuizBrain(question_bank)
 
 while quiz.still_has_questions():
     quiz.next_question()
+
+print("You've completed the quiz!")
+print(f"Your final score was: {quiz.score}/{quiz.question_number}")
+
