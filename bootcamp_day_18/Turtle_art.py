@@ -1,51 +1,42 @@
+import turtle
+import turtle as t
 import random
-from turtle import Turtle, Screen
 
-timmy = Turtle()
+
+timmy = t.Turtle()
+t.colormode(255)
 timmy.shape('turtle')
 
-colors = ['red', 'blue', 'cornsilk3', 'coral', 'gold3', 'purple', 'khaki', 'DarkCyan', 'indianred', 'black',
-          'orange', 'OliveDrab', 'orchid', 'moccasin', 'magenta', 'MediumOrchid', 'cyan',
-          'deep sky blue'
-          ]
 
-used_colors = []
-
-
-def set_color(used):
-    """avoids choosing same color two times and returns color"""
-    color = random.choice(colors)
-
-    while color in used:
-        color = random.choice(colors)
-    # add chosen color to list user_colors
-    used_colors.append(color)
-    return color
+def random_color():
+    r = random.randint(0, 255)
+    g = random.randint(0, 255)
+    b = random.randint(0, 255)
+    color_tuble = (r, g, b)
+    return color_tuble
 
 
-# draw all the geometry bodies out of geometry file in one draw
-def geometry_art():
-    corners = 3
-    while corners < 11:
-        timmy.color(set_color(used_colors))
-        for _ in range(corners):
-            timmy.forward(100)
-            timmy.right(360 / corners)
-        corners += 1
+def random_walk():
+    timmy.pensize(15)
+    dir = [0, 90, 180, 270]
+    timmy.speed('fastest')
+    for i in range(0, 301):
+        timmy.color(random_color())
+        timmy.forward(30)
+        timmy.setheading(random.choice(dir))
 
 
-def dashed_line():
+def circle(set_distance):
+    timmy.speed('fastest')
+    for angles in range(int(360 / set_distance)):
+        timmy.color(random_color())
+        timmy.circle(100)
+        timmy.setheading(timmy.heading() + set_distance)
 
-    for _ in range(15):
-        timmy.pendown()
-        timmy.forward(10)
-        timmy.penup()
-        timmy.forward(10)
 
+circle(5)
 
-geometry_art()
-timmy.forward(100)
-
-screen = Screen()
+screen = t.Screen()
 screen.exitonclick()
+
 # EoF (End of File)
