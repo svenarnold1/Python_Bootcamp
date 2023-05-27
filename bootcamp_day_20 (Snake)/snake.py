@@ -10,14 +10,22 @@ class Snake:
         self.segments = []
         self.create_snake()
 
-    # setup the snake
+    # setup the snake.
     def create_snake(self):
         for position in STARTING_POSITIONS:
-            new_square = Turtle("square")
-            new_square.color("white")
-            new_square.penup()
-            new_square.goto(position)
-            self.segments.append(new_square)
+            self.add_square(position)
+
+    # adds a new square at a certain position.
+    def add_square(self, position):
+        new_square = Turtle("square")
+        new_square.color("white")
+        new_square.penup()
+        new_square.goto(position)
+        self.segments.append(new_square)
+
+    # looks for position of last square and passes it over to add_square function.
+    def extend(self):
+        self.add_square(self.segments[-1].position())
 
     # make sure all segments created are following the segment index 0 (tail is following head).
     def move(self):
@@ -29,7 +37,7 @@ class Snake:
         self.segments[0].forward(MOVE_DISTANCE)
 
     def up(self):
-        if self.segments[0].heading() != 270:  # Don't allow snake to turn 180 degrees
+        if self.segments[0].heading() != 270:  # Don't allow snake to turn 180 degrees.
             self.segments[0].setheading(90)
 
     def down(self):
