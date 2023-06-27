@@ -10,6 +10,7 @@ class Ball(Turtle):
         self.goto(0, 0)
         self.x_move = 10
         self.y_move = 10
+        self.speed = 0.1
 
     def move(self):
         """Moves ball in steps given of value self.x_move and self.y_move."""
@@ -37,10 +38,23 @@ class Ball(Turtle):
         if paddle_x > 0:
             if self.pos()[0] == paddle_x - 20 and paddle_y - 50 <= self.pos()[1] <= paddle_y + 50:
                 self.x_move *= -1
+                self.speed *= 0.95
             else:
                 pass
         else:
             if self.pos()[0] == paddle_x + 20 and paddle_y - 50 <= self.pos()[1] <= paddle_y + 50:
                 self.x_move *= -1
+                self.speed *= 0.95
             else:
                 pass
+
+    def score(self):
+        player = ''
+        if self.xcor() > 380:
+            self.x_move *= -1
+            player = 'left'
+        elif self.xcor() < -380:
+            self.x_move *= -1
+            player = 'right'
+        return player
+

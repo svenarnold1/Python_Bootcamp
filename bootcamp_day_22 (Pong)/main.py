@@ -1,6 +1,7 @@
 from turtle import Screen, Turtle
 from paddle import Paddle
 from ball import Ball
+from pong_Scoreboard import Scoreboard
 import time
 
 
@@ -15,6 +16,7 @@ screen.tracer(0)
 right_paddle = Paddle('right')
 left_paddle = Paddle('left')
 ball = Ball()
+scoreboard = Scoreboard()
 
 # Enable to play with arrow keys
 screen.listen()
@@ -25,8 +27,7 @@ screen.onkey(left_paddle.go_down, "s")
 
 
 game_is_on = True
-score_player_1 = 0
-score_player_2 = 0
+speed = 0.1
 while game_is_on:
     screen.update()
 
@@ -36,13 +37,20 @@ while game_is_on:
     if ball.collision_wall():
         ball.bounce()
 
-    # Detect collision with right paddle.
+    # increase score
+    scorer = ball.score()
+    print(scorer)
+    if scorer == 'left':
+        scoreboard.l_point()
+    elif scorer == 'right':
+        scoreboard.r_point()
+
+    # Detect collision with right or left paddle.
     ball.colide_paddle(right_paddle.pos())
     ball.colide_paddle(left_paddle.pos())
 
-    # Check if player made a point. (Other player couldnt bounce the ball with paddle)
-
-    time.sleep(0.1)
+    # increase speed of ball.
+    time.sleep(ball.speed)
 
 
 screen.exitonclick()
