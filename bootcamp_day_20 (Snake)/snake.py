@@ -36,6 +36,12 @@ class Snake:
 
         self.segments[0].forward(MOVE_DISTANCE)
 
+    def reset(self):
+        for seg in self.segments:
+            seg.goto(1000, 1000)
+        self.segments.clear()
+        self.create_snake()
+
     def up(self):
         if self.segments[0].heading() != 270:  # Don't allow snake to turn 180 degrees.
             self.segments[0].setheading(90)
