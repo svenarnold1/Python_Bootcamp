@@ -39,6 +39,7 @@ while len(already_guessed) < len(states_list):
 # states to learn.csv
 if len(already_guessed) < len(states_list):
     missing_states = set(states_list) - set(already_guessed)  # find missing states in list and store as set
+    # missing = [state for state in states_list if state not in already_guessed]
     to_learn_dict = {"States to learn": list(missing_states)}
     pandas.DataFrame(to_learn_dict).to_csv("states_to_learn.csv")
 screen.exitonclick()
